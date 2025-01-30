@@ -1,0 +1,17 @@
+{
+    "name": "smtp-to-telegram",
+    "version": "1.0.0",
+    "main": "src/index.ts",
+    "author": "Keller",
+    "license": "MIT",
+    "private": true,
+    "dependencies": {
+        "mailparser": "^3.7.2",
+        "puregram": "^2.26.8",
+        "smtp-server": "^3.13.6"
+    },
+    "devDependencies": {
+        "@types/mailparser": "^3.4.5",
+        "@types/smtp-server": "^3.5.10"
+    }
+}
