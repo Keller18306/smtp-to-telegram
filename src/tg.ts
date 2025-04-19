@@ -1,5 +1,5 @@
 import { Telegram } from 'puregram';
-import { filterMessage } from './filterMessage';
+import { filterMessage, splitMessage } from './filterMessage';
 import { config } from '../config';
 
 const tg = new Telegram({
@@ -7,8 +7,12 @@ const tg = new Telegram({
 });
 
 export async function sendMessage(message: string) {
-    await tg.api.sendMessage({
-        chat_id: config.tg.chatId,
-        text: filterMessage(message)
-    });
+    const messages = splitMessage(message);
+
+    for (const message of messages) {
+        await tg.api.sendMessage({
+            chat_id: config.tg.chatId,
+            text: filterMessage(message)
+        });
+    }
 }
