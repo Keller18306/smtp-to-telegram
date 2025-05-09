@@ -1,3 +1,5 @@
+import type { FitlerType } from "./src/filterMessage";
+
 export interface Config {
     tg: {
         token: string;
@@ -17,5 +19,5 @@ export interface Config {
             password: string;
         }[]
     }
-    filter: Array<string | RegExp>;
+    filter: Array<FitlerType>;
 }

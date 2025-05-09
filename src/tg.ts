@@ -7,12 +7,15 @@ const tg = new Telegram({
 });
 
 export async function sendMessage(message: string) {
-    const messages = splitMessage(message);
+    const filteredMessage = filterMessage(message);
+    if (!filteredMessage) return;
 
-    for (const message of messages) {
+    const messages = splitMessage(filteredMessage);
+
+    for (const text of messages) {
         await tg.api.sendMessage({
             chat_id: config.tg.chatId,
-            text: filterMessage(message)
+            text: text
         });
     }
 }

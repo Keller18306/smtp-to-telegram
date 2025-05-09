@@ -1,11 +1,23 @@
 import { config } from "../config";
 
-export function filterMessage(message: string) {
+export type FitlerType = string | RegExp | ((message: string) => string | null);
+
+export function filterMessage(message: string | null) {
+    if (!message) return null;
+
     for (const entry of config.filter) {
-        if (typeof entry === 'string') {
-            message = message.replaceAll(entry, '<HIDDEN>');
-        } else {
-            message = message.replace(entry, '<HIDDEN>');
+        switch (typeof entry) {
+            case 'function':
+                message = entry(message);
+                if (!message) {
+                    return null;
+                }
+                break;
+            case 'string':
+                message = message.replaceAll(entry, '<HIDDEN>');
+                break;
+            default:
+                message = message.replace(entry, '<HIDDEN>');
         }
     }
 
